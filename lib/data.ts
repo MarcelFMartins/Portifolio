@@ -79,7 +79,7 @@ export const featured: Project[] = [
     description:
       "Site da Nodum Soluções Integradas, consultoria de gestão e tecnologia para PMEs, construído sobre um design system próprio.",
     stack: ["Next.js 15", "Tailwind v4", "Framer Motion", "Design System"],
-    live: "https://nodum-site.vercel.app",
+    live: "https://nodumsolucoes.com",
     repo: "https://github.com/MarcelFMartins/NodumSite",
   },
   {
