@@ -7,6 +7,7 @@ import Experience from "@/components/Experience";
 import Skills from "@/components/Skills";
 import Contact from "@/components/Contact";
 import Reveals from "@/components/Reveals";
+import CursorFX from "@/components/CursorFX";
 
 export default function Home() {
   return (
@@ -22,6 +23,7 @@ export default function Home() {
         <Contact />
       </main>
       <Reveals />
+      <CursorFX />
     </>
   );
 }
