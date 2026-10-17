@@ -332,36 +332,17 @@ svg {
 }
 .nav__progress {
   position: absolute;
-  left: 22px;
-  right: 22px;
-  bottom: 0;
-  height: 2px;
-  border-radius: 2px;
+  left: 28px;
+  right: 28px;
+  bottom: 6px;
+  height: 3px;
+  border-radius: 999px;
   background: var(--rainbow);
   background-size: 300% 100%;
   animation: rainbow-shift 8s linear infinite;
-  transform: scaleX(var(--p, 0));
-  transform-origin: left;
+  /* recorte em vez de scaleX para manter as pontas arredondadas */
+  clip-path: inset(0 calc((1 - var(--p, 0)) * 100%) 0 0 round 999px);
   pointer-events: none;
-}
-
-.nav__logo {
-  display: flex;
-  align-items: baseline;
-  font-weight: 700;
-  font-size: 1.05rem;
-  letter-spacing: -0.04em;
-  white-space: nowrap;
-}
-.nav__logo-dot {
-  display: inline-block;
-  width: 7px;
-  height: 7px;
-  margin-left: 3px;
-  border-radius: 50%;
-  background: var(--rainbow);
-  background-size: 600% 100%;
-  animation: rainbow-shift 4s linear infinite;
 }
 
 .nav__links {
@@ -750,10 +731,12 @@ svg {
 }
 
 .card {
-  --hue: 265;
+  --orb: #ff3d8b;
+  position: relative;
   flex-shrink: 0;
   display: grid;
-  grid-template-rows: minmax(0, 0.8fr) auto;
+  /* capa e corpo com a mesma proporção em todos os cartões */
+  grid-template-rows: 36% minmax(0, 1fr);
   width: clamp(340px, 40vw, 600px);
   height: min(72vh, 700px);
   border: 1px solid var(--line);
@@ -779,7 +762,7 @@ svg {
   width: 90%;
   aspect-ratio: 1;
   border-radius: 50%;
-  background: radial-gradient(closest-side, hsl(var(--hue) 90% 66% / 0.95), hsl(var(--hue) 80% 40% / 0.35) 60%, transparent);
+  background: radial-gradient(closest-side, var(--orb), color-mix(in srgb, var(--orb) 35%, transparent) 60%, transparent);
   z-index: -1;
   transition: transform 1.2s var(--ease);
 }
@@ -802,7 +785,63 @@ svg {
   display: flex;
   flex-direction: column;
   gap: 14px;
+  min-height: 0;
   padding: clamp(20px, 2vw, 30px);
+  overflow: hidden;
+}
+.card__desc {
+  display: -webkit-box;
+  -webkit-box-orient: vertical;
+  -webkit-line-clamp: 3;
+  overflow: hidden;
+}
+.card .tags li {
+  flex-shrink: 0;
+}
+.card .tags {
+  flex-wrap: nowrap;
+  overflow: hidden;
+  mask-image: linear-gradient(90deg, #000 85%, transparent);
+}
+.card__links {
+  margin-top: auto;
+}
+
+/* Projeto em destaque: borda arco-íris animada e selo */
+.card--spotlight {
+  border-color: transparent;
+}
+.card--spotlight::after {
+  content: "";
+  position: absolute;
+  inset: 0;
+  z-index: 2;
+  padding: 2px;
+  border-radius: inherit;
+  background: var(--rainbow);
+  background-size: 300% 100%;
+  animation: rainbow-shift 6s linear infinite;
+  -webkit-mask: linear-gradient(#000 0 0) content-box, linear-gradient(#000 0 0);
+  -webkit-mask-composite: xor;
+  mask-composite: exclude;
+  pointer-events: none;
+}
+.card--spotlight {
+  box-shadow: 0 30px 80px -30px rgba(255, 61, 139, 0.55);
+}
+.card__badge {
+  position: absolute;
+  top: 18px;
+  right: 18px;
+  padding: 7px 12px;
+  border-radius: 999px;
+  background: var(--rainbow);
+  background-size: 300% 100%;
+  animation: rainbow-shift 6s linear infinite;
+  color: #0b0b0f;
+  font-weight: 700;
+  font-size: 0.72rem;
+  letter-spacing: 0.04em;
 }
 .card__meta {
   display: flex;
@@ -1306,6 +1345,10 @@ svg {
     width: 100%;
     height: auto;
     grid-template-rows: auto auto;
+  }
+  .card .tags {
+    flex-wrap: wrap;
+    mask-image: none;
   }
   .card__cover {
     height: clamp(150px, 34vw, 260px);

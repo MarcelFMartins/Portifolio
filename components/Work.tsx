@@ -7,6 +7,7 @@ import { featured } from "@/lib/data";
 import ProjectLinks from "./ProjectLinks";
 
 const pad = (n: number) => String(n).padStart(2, "0");
+const orbColors = ["#ff3d8b", "#ff8a3d", "#ffd23f", "#2ee6a6", "#2ec5ff", "#4d6bff"];
 
 export default function Work() {
   const root = useRef<HTMLElement>(null);
@@ -88,10 +89,15 @@ export default function Work() {
         </div>
 
         {featured.map((p, i) => (
-          <article key={p.slug} className="card" style={{ ["--hue" as string]: `${262 + ((i * 14) % 42)}` }}>
+          <article
+            key={p.slug}
+            className={`card${p.spotlight ? " card--spotlight" : ""}`}
+            style={{ ["--orb" as string]: orbColors[i % orbColors.length] }}
+          >
             <div className="card__cover" aria-hidden="true">
               <span className="card__index">{pad(i + 1)}</span>
               <span className="card__orb" />
+              {p.spotlight && <span className="card__badge mono">★ Destaque</span>}
             </div>
             <div className="card__body">
               <div className="card__meta mono card__reveal">
@@ -112,7 +118,7 @@ export default function Work() {
                   <li key={s}>{s}</li>
                 ))}
               </ul>
-              <div className="card__reveal">
+              <div className="card__links card__reveal">
                 <ProjectLinks p={p} />
               </div>
             </div>
