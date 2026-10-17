@@ -4,6 +4,7 @@ import { useEffect, useRef, useState } from "react";
 import gsap from "gsap";
 import { useGSAP } from "@gsap/react";
 import ThemeToggle from "./ThemeToggle";
+import Logo from "./Logo";
 import { scrollToTarget, useLenis } from "./SmoothScroll";
 import { profile } from "@/lib/data";
 
@@ -79,7 +80,7 @@ export default function Nav() {
       <header className={`nav ${hidden && !open ? "is-hidden" : ""}`}>
         <div className="nav__tab">
           <a href="#top" className="nav__logo" onClick={(e) => go(e, "#top")} aria-label="Início">
-            <span className="nav__mark" aria-hidden="true">&gt;_</span>
+            <Logo size={32} />
             <span className="nav__name">{profile.name}</span>
           </a>
           <nav className="nav__links" aria-label="Seções">
