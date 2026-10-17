@@ -288,6 +288,13 @@ svg {
 
 .nav__tab {
   --r: 20px;
+  /* cores invertidas em relação ao tema da página */
+  --nav-bg: #f4f2f8;
+  --nav-fg: #0d0b13;
+  --nav-muted: #5d586a;
+  --nav-line: rgba(13, 11, 19, 0.14);
+  --nav-accent: var(--violet-600);
+  --nav-hover: rgba(124, 58, 237, 0.12);
   pointer-events: auto;
   position: relative;
   display: flex;
@@ -298,9 +305,18 @@ svg {
   padding: 0 10px 0 22px;
   padding-top: env(safe-area-inset-top);
   height: calc(var(--nav-h) + env(safe-area-inset-top));
-  background: var(--bg);
+  background: var(--nav-bg);
+  color: var(--nav-fg);
   border-radius: 0 0 var(--r) var(--r);
-  transition: background-color 0.5s var(--ease);
+  transition: background-color 0.5s var(--ease), color 0.5s var(--ease);
+}
+:root[data-theme="light"] .nav__tab {
+  --nav-bg: #0d0b13;
+  --nav-fg: #f4f2f8;
+  --nav-muted: #9a95a8;
+  --nav-line: rgba(255, 255, 255, 0.16);
+  --nav-accent: var(--violet-400);
+  --nav-hover: rgba(167, 139, 250, 0.16);
 }
 .nav__tab::before,
 .nav__tab::after {
@@ -313,11 +329,11 @@ svg {
 }
 .nav__tab::before {
   left: calc(var(--r) * -1);
-  background: radial-gradient(circle at 0 100%, transparent calc(var(--r) - 0.5px), var(--bg) var(--r));
+  background: radial-gradient(circle at 0 100%, transparent calc(var(--r) - 0.5px), var(--nav-bg) var(--r));
 }
 .nav__tab::after {
   right: calc(var(--r) * -1);
-  background: radial-gradient(circle at 100% 100%, transparent calc(var(--r) - 0.5px), var(--bg) var(--r));
+  background: radial-gradient(circle at 100% 100%, transparent calc(var(--r) - 0.5px), var(--nav-bg) var(--r));
 }
 
 .nav__logo {
@@ -349,11 +365,11 @@ svg {
 }
 .nav__links a {
   position: relative;
-  color: var(--muted);
+  color: var(--nav-muted);
   transition: color 0.3s;
 }
 .nav__links a:hover {
-  color: var(--fg);
+  color: var(--nav-fg);
 }
 .nav__links a::after {
   content: "";
@@ -363,7 +379,7 @@ svg {
   width: 4px;
   height: 4px;
   border-radius: 50%;
-  background: var(--accent);
+  background: var(--nav-accent);
   transform: translateX(-50%) scale(0);
   transition: transform 0.4s var(--ease);
 }
@@ -383,16 +399,17 @@ svg {
   place-items: center;
   width: 42px;
   height: 42px;
-  border: 1px solid var(--line);
+  border: 1px solid var(--nav-line);
   border-radius: 50%;
   background: transparent;
+  color: var(--nav-fg);
   cursor: pointer;
   transition: border-color 0.3s, background-color 0.3s;
 }
 .theme-toggle:hover,
 .nav__burger:hover {
-  border-color: var(--line-strong);
-  background: var(--accent-soft);
+  border-color: var(--nav-muted);
+  background: var(--nav-hover);
 }
 .theme-toggle__icon {
   position: relative;
