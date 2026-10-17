@@ -28,10 +28,12 @@ export default function Hero() {
           .timeline({
             scrollTrigger: { trigger: root.current, start: "top top", end: "+=70%", scrub: 0.6, pin: true, pinSpacing: true },
           })
-          .to(".hero__title", { scale: 0.86, yPercent: -18, ease: "none" }, 0)
-          .to(".hero__fade, .hero__rule", { autoAlpha: 0, y: -30, ease: "none" }, 0)
-          .to(".hero__glow", { scale: 1.6, autoAlpha: 0.35, ease: "none" }, 0)
-          .to(".hero__title", { autoAlpha: 0, ease: "none" }, 0.55);
+          // fromTo com valores explícitos: a entrada acima esconde esses elementos,
+          // então um .to() capturaria o estado "escondido" como ponto de partida.
+          .fromTo(".hero__title", { scale: 1, yPercent: 0 }, { scale: 0.86, yPercent: -18, ease: "none", immediateRender: false }, 0)
+          .fromTo(".hero__fade, .hero__rule", { autoAlpha: 1, y: 0 }, { autoAlpha: 0, y: -30, ease: "none", immediateRender: false }, 0)
+          .fromTo(".hero__glow", { scale: 1, autoAlpha: 1 }, { scale: 1.6, autoAlpha: 0.35, ease: "none", immediateRender: false }, 0)
+          .fromTo(".hero__title", { autoAlpha: 1 }, { autoAlpha: 0, ease: "none", immediateRender: false }, 0.55);
       });
 
       return () => mm.revert();
