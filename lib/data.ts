@@ -29,10 +29,28 @@ export type Project = {
   live?: string;
   repo?: string;
   private?: boolean;
+  /** Recebe selo e borda especial na vitrine. */
+  spotlight?: boolean;
 };
 
 // Projetos em destaque — aparecem na seção horizontal fixa.
 export const featured: Project[] = [
+  {
+    slug: "nodum-barber",
+    title: "NodumBarber",
+    kind: "SaaS · Barbearia",
+    year: "2026",
+    description:
+      "Sistema de gestão para barbearias: agenda por barbeiro, checkout com pagamento dividido, planos de pacote, comissões, estoque, relatórios e dashboard.",
+    highlights: [
+      "Zero conflito de horário com transação SERIALIZABLE",
+      "Planos de cortes com crédito e extrato por cliente",
+      "WhatsApp manual com mensagens prontas",
+    ],
+    stack: ["Next.js 15", "React 19", "TypeScript", "Prisma", "PostgreSQL", "JWT", "Playwright"],
+    repo: "https://github.com/MarcelFMartins/NodumBarber",
+    spotlight: true,
+  },
   {
     slug: "nodum-studio",
     title: "NodumStudio",
@@ -46,7 +64,29 @@ export const featured: Project[] = [
       "Testes unitários, de integração e E2E",
     ],
     stack: ["Next.js 15", "TypeScript", "Prisma", "PostgreSQL", "Tailwind v4", "Jest", "Playwright"],
-    private: true,
+    repo: "https://github.com/MarcelFMartins/NodumStudio",
+  },
+  {
+    slug: "agenda-interna",
+    title: "Agenda Interna",
+    kind: "Gestão de tarefas",
+    year: "2026",
+    description:
+      "Controle de tarefas interno no espírito do Notion: painel com gráficos, tabela, kanban com arrastar e soltar, prazos e equipe.",
+    highlights: ["Kanban com arrastar e soltar", "Gráficos em SVG puro, sem dependências", "Sessão httpOnly e bcrypt"],
+    stack: ["Node.js", "Express", "PostgreSQL", "JavaScript", "Design System"],
+    repo: "https://github.com/MarcelFMartins/AgendaInterna",
+  },
+  {
+    slug: "nodum-cs",
+    title: "Nodum CS Quiz",
+    kind: "Quiz competitivo",
+    year: "2026",
+    description:
+      "Quiz sobre Counter-Strike com modos Solo e Duo, combos e bônus de velocidade, login com Google e Steam e painel administrativo.",
+    highlights: ["Login Steam OpenID + Firebase", "Painel admin com KPIs e CSV", "Funções serverless na Vercel"],
+    stack: ["JavaScript", "GSAP", "Firebase", "Firestore", "Vercel"],
+    repo: "https://github.com/MarcelFMartins/NodumCS",
   },
   {
     slug: "ihub",

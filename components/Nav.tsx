@@ -86,10 +86,6 @@ export default function Nav() {
     <>
       <header className="nav">
         <div className="nav__tab">
-          <a href="#top" className="nav__logo" onClick={(e) => go(e, "#top")} aria-label="Início">
-            marcel
-            <span className="nav__logo-dot" aria-hidden="true" />
-          </a>
           <nav className="nav__links" aria-label="Seções">
             {links.map((l) => (
               <a key={l.href} href={l.href} onClick={(e) => go(e, l.href)}>
