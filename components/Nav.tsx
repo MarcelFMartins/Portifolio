@@ -4,7 +4,6 @@ import { useEffect, useRef, useState } from "react";
 import gsap from "gsap";
 import { useGSAP } from "@gsap/react";
 import ThemeToggle from "./ThemeToggle";
-import Logo from "./Logo";
 import { scrollToTarget, useLenis } from "./SmoothScroll";
 import { profile } from "@/lib/data";
 
@@ -18,21 +17,29 @@ const links = [
 export default function Nav() {
   const lenis = useLenis();
   const [open, setOpen] = useState(false);
-  const [hidden, setHidden] = useState(false);
   const menuRef = useRef<HTMLDivElement>(null);
+  const progressRef = useRef<HTMLSpanElement>(null);
   const tl = useRef<gsap.core.Timeline | null>(null);
 
-  // Esconde a nav ao rolar para baixo e mostra ao subir.
+  // Barra de progresso de leitura: escreve direto no CSS, sem re-render.
   useEffect(() => {
-    let last = window.scrollY;
-    const onScroll = () => {
-      const y = window.scrollY;
-      setHidden(y > 160 && y > last + 2);
-      if (y < last - 2 || y < 160) setHidden(false);
-      last = y;
+    let raf = 0;
+    const update = () => {
+      raf = 0;
+      const max = document.documentElement.scrollHeight - window.innerHeight;
+      progressRef.current?.style.setProperty("--p", String(max > 0 ? window.scrollY / max : 0));
     };
+    const onScroll = () => {
+      if (!raf) raf = requestAnimationFrame(update);
+    };
+    update();
     window.addEventListener("scroll", onScroll, { passive: true });
-    return () => window.removeEventListener("scroll", onScroll);
+    window.addEventListener("resize", onScroll);
+    return () => {
+      cancelAnimationFrame(raf);
+      window.removeEventListener("scroll", onScroll);
+      window.removeEventListener("resize", onScroll);
+    };
   }, []);
 
   useGSAP(
@@ -77,11 +84,11 @@ export default function Nav() {
 
   return (
     <>
-      <header className={`nav ${hidden && !open ? "is-hidden" : ""}`}>
+      <header className="nav">
         <div className="nav__tab">
           <a href="#top" className="nav__logo" onClick={(e) => go(e, "#top")} aria-label="Início">
-            <Logo size={32} />
-            <span className="nav__name">{profile.name}</span>
+            marcel
+            <span className="nav__logo-dot" aria-hidden="true" />
           </a>
           <nav className="nav__links" aria-label="Seções">
             {links.map((l) => (
@@ -104,6 +111,7 @@ export default function Nav() {
               <span />
             </button>
           </div>
+          <span ref={progressRef} className="nav__progress" aria-hidden="true" />
         </div>
       </header>
 
